@@ -6,19 +6,19 @@
 
 The following image shows the live graph of sensor data displayed on the web page.
 
-![Live Data Graph](graph.png)
+![Live Data Graph](assets/graph.png)
 
 ### Circuit Diagram
 
 This image shows the circuit diagram for connecting the DHT11 sensor to the ESP32.
 
-![Circuit Diagram](circuit.png)
+![Circuit Diagram](assets/circuit.png)
 
 ### Serial Monitor Output
 
 This image shows the output from the serial monitor, including the IP address of the ESP32.
 
-![Serial Monitor Output](output.png)
+![Serial Monitor Output](assets/output.png)
 
 This document guides you through setting up a local web server on an ESP32 to display sensor data with a live-updating graph.
 
