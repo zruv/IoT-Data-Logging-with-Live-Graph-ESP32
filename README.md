@@ -1,5 +1,25 @@
 # Task 2: IoT Data Logging with Live Graph (ESP32)
 
+## Visuals
+
+### Live Data Graph
+
+The following image shows the live graph of sensor data displayed on the web page.
+
+![Live Data Graph](graph.png)
+
+### Circuit Diagram
+
+This image shows the circuit diagram for connecting the DHT11 sensor to the ESP32.
+
+![Circuit Diagram](circuit.png)
+
+### Serial Monitor Output
+
+This image shows the output from the serial monitor, including the IP address of the ESP32.
+
+![Serial Monitor Output](output.png)
+
 This document guides you through setting up a local web server on an ESP32 to display sensor data with a live-updating graph.
 
 ## Goal
@@ -77,3 +97,4 @@ The `task2.ino` sketch does the following:
     *   JavaScript code to fetch data from the `/data` endpoint every 5 seconds and update the chart.
 *   The `handleData()` function constructs and sends a JSON object containing the temperature and humidity history.
 *   To view the output, open the Serial Monitor with a baud rate of 115200.
+
