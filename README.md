@@ -9,7 +9,7 @@ Send sensor readings to a local web dashboard.
 ## Requirements
 
 *   ESP32 Development Board
-*   Any one sensor (in this guide, we will use a DHT11 sensor)
+*   We will use a DHT11 sensor
 *   Arduino IDE with ESP32 board support
 
 ## Steps
@@ -33,15 +33,31 @@ Send sensor readings to a local web dashboard.
 
 3.  **Write the code:**
     *   Open the `task2.ino` file in the Arduino IDE.
-    *   Update the `ssid` and `password` variables with your Wi-Fi credentials.
-    *   Update the `DHTPIN` define to match the GPIO pin you chose (e.g., `#define DHTPIN 23`).
+    *   Update the `ssid` and `password` variables with the Wi-Fi credentials.
     *   Upload the code to your ESP32.
 
 4.  **Test the setup:**
     *   Open the Serial Monitor to see the IP address of the ESP32.
-    *   Open a web browser and enter the IP address to see the sensor readings.
+    *   Press EN/Reset button after flashing the code if necessary.
+    *   Open a web browser and enter the IP address to see the sensor readings. This website automatically updates every 5 secs so that data remains updated with the readings we don't need to hit refresh again and again.
 
-## Code Explanation
+## Mandatory Libraries and Code Pre-requisites
+
+Before proceeding, ensure you have the following libraries and tools installed:
+
+1. **Arduino IDE**: Download and install the latest version of the Arduino IDE from the [official website](https://www.arduino.cc/en/software).
+
+2. **ESP32 Board Package**: Follow the steps in the "Set up the Arduino IDE" section to install the ESP32 board package.
+
+3. **DHT Sensor Library**: Install the `DHT sensor library` by Adafruit as described earlier.
+
+4. **WiFi Library**: The `WiFi.h` library is included with the ESP32 board package. Ensure it is available in your Arduino IDE.
+
+5. **WebServer Library**: The `WebServer.h` library is also included with the ESP32 board package. Verify its availability.
+
+These libraries are essential for compiling and running the `task2.ino` sketch successfully.
+
+## Code Explaination
 
 The `task2.ino` sketch does the following:
 
@@ -51,10 +67,4 @@ The `task2.ino` sketch does the following:
 *   In the `setup()` function, it connects to Wi-Fi and starts the web server.
 *   The `handleRoot()` function is called when a request is made to the root URL. It reads the sensor data, creates an HTML page with the data, and sends it to the client. The HTML includes a meta tag that automatically refreshes the page every 5 seconds.
 *   The `loop()` function continuously handles client requests.
-
-## Deliverables
-
-1.  Code (Arduino sketch)
-2.  Screenshot of the live data (local web page)
-3.  1-2 minute video explaining the working setup
-4.  Well-documented `README.md` report (this file)
+*   Open Serial Monitor and change baud rate to 115200 to properly see the output.
