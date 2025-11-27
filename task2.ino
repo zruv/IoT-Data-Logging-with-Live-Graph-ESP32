@@ -1,17 +1,28 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <DHT.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #include <vector>
 
 // Replace with your network credentials
 const char* ssid = "Airtel_Systumm HANG";
 const char* password = "Bvcoe@123";
 
-// Define the DHT sensor pin and type
-#define DHTPIN 23 // GPIO23 for ESP32
+// Define sensor and actuator pins
+#define DHTPIN 27       // DHT11 data pin
+#define BUZZER_PIN 14   // Buzzer pin
+#define I2C_SDA 25      // I2C SDA pin
+#define I2C_SCL 26      // I2C SCL pin
+
 #define DHTTYPE DHT11
 
+// DHT Sensor
 DHT dht(DHTPIN, DHTTYPE);
+
+// I2C LCD
+LiquidCrystal_I2C lcd(0x3F, 16, 2); // Address 0x27 for 16x2 LCD
+
 WebServer server(80);
 
 // Data history
@@ -23,14 +34,25 @@ const int maxHistorySize = 20;
 unsigned long lastReadTime = 0;
 const long readInterval = 5000; // 5 seconds
 
+// --- Function Prototypes ---
+void updateLcd(float temp, float hum);
+void triggerBuzzer();
+
 void readSensorData() {
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
 
   if (isnan(humidity) || isnan(temperature)) {
     Serial.println("Failed to read from DHT sensor!");
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Sensor Fail");
+    triggerBuzzer();
     return;
   }
+
+  // Update LCD
+  updateLcd(temperature, humidity);
 
   // Add to history
   tempHistory.push_back(temperature);
@@ -43,6 +65,21 @@ void readSensorData() {
   if (humHistory.size() > maxHistorySize) {
     humHistory.erase(humHistory.begin());
   }
+}
+
+void updateLcd(float temp, float hum) {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: " + String(temp, 1) + "C");
+  lcd.setCursor(0, 1);
+  lcd.print("Hum:  " + String(hum, 1) + "%");
+}
+
+void triggerBuzzer() {
+  // Turn buzzer on for a short duration
+  digitalWrite(BUZZER_PIN, HIGH);
+  delay(100);
+  digitalWrite(BUZZER_PIN, LOW);
 }
 
 void handleRoot() {
@@ -92,7 +129,20 @@ void handleData() {
 
 void setup() {
   Serial.begin(115200);
+  
+  // Initialize I2C bus and LCD
+  Wire.begin(I2C_SDA, I2C_SCL);
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("System Booting...");
+
+  // Initialize DHT Sensor
   dht.begin();
+
+  // Initialize Buzzer
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -108,6 +158,12 @@ void setup() {
   server.on("/", handleRoot);
   server.on("/data", handleData);
   server.begin();
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Online!");
+  lcd.setCursor(0,1);
+  lcd.print(WiFi.localIP());
 }
 
 void loop() {
