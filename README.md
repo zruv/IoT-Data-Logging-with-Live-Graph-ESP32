@@ -1,4 +1,4 @@
-# Task 2: IoT Data Logging with Live Graph (ESP32)
+# IoT Data Logging with Live Graph (ESP32)
 
 ## Visuals
 
