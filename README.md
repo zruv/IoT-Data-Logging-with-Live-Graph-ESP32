@@ -1,5 +1,9 @@
 # IoT Data Logging with Live Graph (ESP32)
 
+> ⚠️ **SECURITY NOTICE**: Before uploading this code to your ESP32, make sure to replace the placeholder Wi-Fi credentials (`YOUR_WIFI_SSID` and `YOUR_WIFI_PASSWORD`) in `task2.ino` with your actual network credentials. **Never commit your actual credentials to a public repository.** See [SECURITY.md](SECURITY.md) for more information.
+
+> 📖 **NEW**: See [EXPLANATION.md](EXPLANATION.md) for a comprehensive guide on how this project works, including architecture details and troubleshooting tips.
+
 ## Visuals
 
 ### Live Data Graph

@@ -6,8 +6,8 @@
 #include <vector>
 
 // Replace with your network credentials
-const char* ssid = "Airtel_Systumm HANG";
-const char* password = "Bvcoe@123";
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
 
 // Define sensor and actuator pins
 #define DHTPIN 27       // DHT11 data pin
@@ -21,7 +21,7 @@ const char* password = "Bvcoe@123";
 DHT dht(DHTPIN, DHTTYPE);
 
 // I2C LCD
-LiquidCrystal_I2C lcd(0x3F, 16, 2); // Address 0x27 for 16x2 LCD
+LiquidCrystal_I2C lcd(0x3F, 16, 2); // Address 0x3F for 16x2 LCD (use 0x27 if your LCD uses that address)
 
 WebServer server(80);
 

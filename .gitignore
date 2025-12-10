@@ -1,0 +1,32 @@
+# Arduino IDE
+*.hex
+*.eep
+*.elf
+*.map
+*.bin
+
+# Build directories
+build/
+.build/
+
+# IDE specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# OS specific files
+.DS_Store
+Thumbs.db
+*~
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+/tmp/
+
+# Configuration files with credentials (add custom config file here if created)
+config.h
+credentials.h
+secrets.h
+wifi_credentials.h
